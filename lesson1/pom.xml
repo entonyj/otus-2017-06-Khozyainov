@@ -73,7 +73,7 @@
                 <configuration>
                     <maxMemory>1024m</maxMemory>
                     <injar>${project.build.finalName}.jar</injar>
-                    <outjar>${project.build.finalName}-small.jar</outjar>
+                    <outjar>${project.build.finalName}-obfuscated.jar</outjar>
                     <proguardInclude>${basedir}/proguard.conf</proguardInclude>
                     <libs>
                         <lib>${java.home}/lib/rt.jar</lib>
