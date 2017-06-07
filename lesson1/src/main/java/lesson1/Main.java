@@ -5,6 +5,7 @@ package lesson1;
  */
 public class Main {
     public static void main(String[] args){
-        System.out.println("Don't know what im doing here=)");
+        Second second = new Second("Kek");
+        System.out.println("Don't know what im doing here=)"+second.name);
     }
 }
