@@ -31,29 +31,32 @@
         <finalName>${project.name}</finalName>
         <plugins>
 
-            <!-- Assembly plugin =) -->
+            <!-- А теперь попробуем shade plugin =) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>lesson1.Main</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.3</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>shade</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <artifactSet>
+                        <includes>
+                            <include>lesson1.*:*</include>
+                        </includes>
+                    </artifactSet>
+
+                    <transformers>
+                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>lesson1.Main</mainClass>
+                        </transformer>
+                    </transformers>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -62,10 +65,15 @@
                 <executions>
                     <execution>
                         <phase>package</phase>
-                        <goals><goal>proguard</goal></goals>
+                        <goals>
+                            <goal>proguard</goal>
+                        </goals>
                     </execution>
                 </executions>
                 <configuration>
+                    <maxMemory>1024m</maxMemory>
+                    <injar>${project.build.finalName}.jar</injar>
+                    <outjar>${project.build.finalName}-small.jar</outjar>
                     <proguardInclude>${basedir}/proguard.conf</proguardInclude>
                     <libs>
                         <lib>${java.home}/lib/rt.jar</lib>
@@ -75,5 +83,6 @@
 
         </plugins>
     </build>
+
 
 </project>
