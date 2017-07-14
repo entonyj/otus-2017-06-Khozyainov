@@ -23,7 +23,7 @@ class Measurer {
         return runtime.totalMemory()-runtime.freeMemory();
     }
 
-    private static long getMem(Runnable proc){
+    private static long getMemChanges(Runnable proc){
         long memBefore = getMem();
         proc.run();
         long memAfter = getMem();
@@ -32,7 +32,7 @@ class Measurer {
 
     void measure(Supplier<Object> supplier, String name){
         array = new Object[size];
-        long memChanged = getMem(() -> {
+        long memChanged = getMemChanges(() -> {
             for (int i=0; i < size; i++){
                 array[i] = supplier.get();
             }
