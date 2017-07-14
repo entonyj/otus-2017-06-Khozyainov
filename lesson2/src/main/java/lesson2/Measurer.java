@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 class Measurer {
     private Object[] array;
     private final int size;
+    private static Runtime runtime = Runtime.getRuntime();
 
     Measurer(){
         this.size = 1000000;
@@ -17,13 +18,15 @@ class Measurer {
         this.size = size;
     };
 
+    private static long getMem(){
+        System.gc();
+        return runtime.totalMemory()-runtime.freeMemory();
+    }
+
     private static long getMem(Runnable proc){
-        Runtime runtime = Runtime.getRuntime();
-        System.gc();
-        long memBefore = runtime.totalMemory()-runtime.freeMemory();
+        long memBefore = getMem();
         proc.run();
-        System.gc();
-        long memAfter = runtime.totalMemory()-runtime.freeMemory();
+        long memAfter = getMem();
         return memAfter - memBefore;
     }
 
