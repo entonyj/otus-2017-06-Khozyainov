@@ -11,21 +11,37 @@ import java.util.function.UnaryOperator;
 public class MyArrayList<T> implements List<T> {
 
     private Object[] myArrayList;
-    private int size;
+    private int size = 0;
     private int capacity = 10;
 
+    private void checkCapacity(int minCapacity){
+        if (minCapacity - capacity > 0)
+            increaseCapacity();
+    }
+
+    private void increaseCapacity(){
+        int newCapacity = (capacity * 3) / 2 + 1;
+
+    }
+
     public MyArrayList() {
-        this.myArrayList = new Object[this.capacity];
+        myArrayList = new Object[capacity];
     }
 
     public MyArrayList(int capacity) throws IllegalArgumentException {
         if (capacity > 0) {
-            this.myArrayList = new Object[capacity];
+            myArrayList = new Object[capacity];
         } else if (capacity == 0) {
-            this.myArrayList = new Object[this.capacity];
+            myArrayList = new Object[this.capacity];
         } else {
             throw new IllegalArgumentException("Illegal size, must be > 0");
         }
+    }
+
+    public boolean add(T e) {
+        checkCapacity(size + 1);
+        myArrayList[size++] = e;
+        return true;
     }
 
     public Iterator<T> iterator() {
@@ -54,10 +70,7 @@ public class MyArrayList<T> implements List<T> {
     }
 
     //*TODO Realise methods: add, set, toArray,
-    public boolean add(T t) {
-        boolean result = false;
-        return result;
-    }
+
 
     public T set(int index, T element) {
         return null;

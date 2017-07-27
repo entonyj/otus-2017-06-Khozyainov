@@ -13,7 +13,7 @@ public class Main {
 
         myArrayList.add(1);
 
-
+        System.out.println((9+1)*3/2);
 
         //Collections.addAll(myArrayList, srcArray);
         //Collections.copy(destArray, myArrayList);
