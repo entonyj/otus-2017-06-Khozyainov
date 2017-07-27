@@ -11,13 +11,11 @@ public class Main {
         Integer[] srcArray = {1,2,3};
         ArrayList<Integer> destArray = new ArrayList<Integer>(3);
 
-        Collections.addAll(myArrayList, srcArray);
+        myArrayList.add(1);
 
-        Collections.copy(destArray, myArrayList);
 
-        for (int num: myArrayList){
-            System.out.println(num);
-        }
 
+        //Collections.addAll(myArrayList, srcArray);
+        //Collections.copy(destArray, myArrayList);
     }
 }

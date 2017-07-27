@@ -2,21 +2,33 @@ package lesson3;
 
 import jdk.nashorn.internal.ir.annotations.Ignore;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.function.Consumer;
+import java.util.*;
+import java.util.function.UnaryOperator;
 
 /**
  * Created by entony on 13.07.17.
  */
-public class MyArrayList<T> implements List<T>{
+public class MyArrayList<T> implements List<T> {
 
-    private T[] myArrayList;
+    private Object[] myArrayList;
     private int size;
+    private int capacity = 10;
 
-    public Iterator<T> iterator(){
+    public MyArrayList() {
+        this.myArrayList = new Object[this.capacity];
+    }
+
+    public MyArrayList(int capacity) throws IllegalArgumentException {
+        if (capacity > 0) {
+            this.myArrayList = new Object[capacity];
+        } else if (capacity == 0) {
+            this.myArrayList = new Object[this.capacity];
+        } else {
+            throw new IllegalArgumentException("Illegal size, must be > 0");
+        }
+    }
+
+    public Iterator<T> iterator() {
         return new Iterator<T>() {
 
             private int currentIdx = 0;
@@ -26,40 +38,66 @@ public class MyArrayList<T> implements List<T>{
             }
 
             public T next() {
-                return myArrayList[currentIdx++];
+                if (currentIdx < size)
+                    return (T) myArrayList[currentIdx++];
+                return null;
             }
 
             @Ignore
-            public void forEachRemaining() throws UnsupportedOperationException {}
+            public void forEachRemaining() throws UnsupportedOperationException {
+            }
 
             @Ignore
-            public void remove() throws UnsupportedOperationException{}
+            public void remove() throws UnsupportedOperationException {
+            }
         };
     }
 
+    //*TODO Realise methods: add, set, toArray,
     public boolean add(T t) {
-        return false;
+        boolean result = false;
+        return result;
     }
 
-    public int size(){
+    public T set(int index, T element) {
+        return null;
+    }
+
+    public Object[] toArray() {
+        return new Object[0];
+    }
+
+    public int size() {
         return this.size;
     }
 
-    public boolean isEmpty(){
-        return this.size==0;
+    public boolean isEmpty() {
+        return this.size == 0;
     }
-
-    public boolean contains(Object o) {
-        return false;
-    }
-
-    @Ignore
-    public Object[] toArray() throws UnsupportedOperationException{throw new UnsupportedOperationException("toArray");}
 
     public <T> T[] toArray(T[] a) {
         return null;
     }
 
+    public void sort(Comparator<? super T> c) {
+
+    }
+
+    public ListIterator<T> listIterator() {
+        return null;
+    }
+
+    public ListIterator<T> listIterator(int index) {
+        return null;
+    }
+
+
+    //*TODO add exceptions
+
+
+    public boolean contains(Object o) {
+        return false;
+    }
 
     public boolean remove(Object o) {
         return false;
@@ -85,19 +123,20 @@ public class MyArrayList<T> implements List<T>{
         return false;
     }
 
-    @Ignore
-    public void clear() throws UnsupportedOperationException{}
+    public void replaceAll(UnaryOperator<T> operator) {
 
-    public T get(int index) {
-        return null;
-    }
-
-    public T set(int index, T element) {
-        return null;
     }
 
     public void add(int index, T element) {
 
+    }
+
+    @Ignore
+    public void clear() throws UnsupportedOperationException {
+    }
+
+    public T get(int index) {
+        return null;
     }
 
     public T remove(int index) {
@@ -112,15 +151,11 @@ public class MyArrayList<T> implements List<T>{
         return 0;
     }
 
-    public ListIterator<T> listIterator() {
-        return null;
-    }
-
-    public ListIterator<T> listIterator(int index) {
-        return null;
-    }
-
     public List<T> subList(int fromIndex, int toIndex) {
+        return null;
+    }
+
+    public Spliterator<T> spliterator() {
         return null;
     }
 
