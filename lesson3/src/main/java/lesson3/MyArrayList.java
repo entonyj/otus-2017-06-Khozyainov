@@ -21,7 +21,7 @@ public class MyArrayList<T> implements List<T> {
 
     private void increaseCapacity(){
         int newCapacity = (capacity * 3) / 2 + 1;
-
+        myArrayList = Arrays.copyOf(myArrayList, newCapacity);
     }
 
     public MyArrayList() {
