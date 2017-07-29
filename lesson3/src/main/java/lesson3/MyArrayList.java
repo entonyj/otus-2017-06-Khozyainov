@@ -55,7 +55,11 @@ public class MyArrayList<T> implements List<T>, RandomAccess {
     }
 
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return listIterator();
+    }
+
+    public ListIterator<T> listIterator() {
+        return new ListIterator<T>() {
 
             private int currentIndex = 0;
 
@@ -67,6 +71,34 @@ public class MyArrayList<T> implements List<T>, RandomAccess {
                 if (currentIndex < size)
                     return (T) data[currentIndex++];
                 return null;
+            }
+
+            public boolean hasPrevious() {
+                return false;
+            }
+
+            public T previous() {
+                return null;
+            }
+
+            public int nextIndex() {
+                return 0;
+            }
+
+            public int previousIndex() {
+                return 0;
+            }
+
+            public void remove() {
+
+            }
+
+            public void set(T t) {
+
+            }
+
+            public void add(T t) {
+
             }
 
         };
@@ -105,10 +137,6 @@ public class MyArrayList<T> implements List<T>, RandomAccess {
     }
 
     public void clear() {
-    }
-
-    public ListIterator<T> listIterator() {
-        return null;
     }
 
     public ListIterator<T> listIterator(int index) {
