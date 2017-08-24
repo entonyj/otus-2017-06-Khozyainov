@@ -36,7 +36,6 @@ public class ATM {
     }
 
     public boolean withdraw(int cash){
-        //todo
         beforeWithdraw = copyCells(cells);
         Iterator<Cell> i = cells.iterator();
         while ((i.hasNext()) && (cash != 0)){
@@ -44,7 +43,6 @@ public class ATM {
         }
         if (cash == 0)
             return true;
-        //todo
         setBeforeWithdraw();
         return false;
     }
