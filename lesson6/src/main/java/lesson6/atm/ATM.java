@@ -1,63 +1,74 @@
 package lesson6.atm;
 
-import java.util.ArrayList;
+import lesson6.atm.memento.Caretaker;
+import lesson6.atm.memento.Memento;
+import lesson6.money.Note;
+import lesson6.service.Service;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+
+import static lesson6.atm.Cell.copyCells;
 
 /**
  * Created by entony on 15.08.17.
  */
 public class ATM {
     private List<Cell> cells;
-    private List<Cell> beforeWithdraw;
-    private final List<Cell> defaultCells;
+    private Caretaker caretaker = new Caretaker();
 
-    public ATM(List<Cell> cells){
+    public ATM(List<Cell> cells) {
         Collections.sort(cells);
-        this.cells = cells;
-        defaultCells = copyCells(cells);
+        this.cells = copyCells(cells);
+        caretaker.setDefaultMemento(saveToMemento());
     }
 
-    public List<Cell> copyCells(List<Cell> src){
-        List<Cell> result = new ArrayList<>();
-        for (Cell cell: src){
-            result.add(new Cell(cell));
-        }
-        return result;
+    public void collectMoney(){
+        cells = caretaker.getDefaultMemento().getSavedState();
     }
 
-    public void setBeforeWithdraw(){
-        cells = copyCells(beforeWithdraw);
+    public Memento saveToMemento() {
+        return new Memento(cells);
     }
 
-    public void setDefaultCells(){
-        cells = copyCells(defaultCells);
+    public void restoreFromMemento(Memento memento) {
+        cells = memento.getSavedState();
     }
 
-    public boolean withdraw(int cash){
-        beforeWithdraw = copyCells(cells);
+    public boolean withdraw(int cash) {
+        caretaker.setMemento(saveToMemento());
+
         Iterator<Cell> i = cells.iterator();
-        while ((i.hasNext()) && (cash != 0)){
+        while ((i.hasNext()) && (cash != 0)) {
             cash = cash - i.next().withdraw(cash);
         }
+
         if (cash == 0)
             return true;
-        setBeforeWithdraw();
+
+        restoreFromMemento(caretaker.getMemento());
         return false;
     }
 
-    public int getBalance(){
+    public List<Note> deposit(List<Note> notes) {
+        List<Note> backingCash = notes;
+        for (Cell cell: cells){
+            backingCash = cell.deposit(notes);
+        }
+        return backingCash;
+    }
+
+    public int getBalance() {
         int total = 0;
-        for(Cell cell: cells){
+        for (Cell cell : cells) {
             total = total + cell.getBalance();
         }
         return total;
     }
 
-    public void printCells(){
-        for (Cell cell: cells)
-            cell.printCell();
+    public void doService(Service service){
+        service.visit(this);
     }
 
 }

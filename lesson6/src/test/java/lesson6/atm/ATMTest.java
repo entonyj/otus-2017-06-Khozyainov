@@ -1,6 +1,7 @@
 package lesson6.atm;
 
-import com.sun.source.tree.AssertTree;
+import lesson6.money.Nominal;
+import lesson6.money.Note;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class ATMTest {
     public void balanceOk(){
         List<Cell> cell = new ArrayList<>();
 
-        cell.add(new Cell(1,100));
+        cell.add(new Cell(Nominal.TEN,10));
         ATM atm = new ATM(cell);
 
         Assert.assertEquals(100, atm.getBalance());
@@ -25,8 +26,8 @@ public class ATMTest {
     public void withdrawOk(){
         List<Cell> cells = new ArrayList<>();
 
-        cells.add(new Cell(1, 10));
-        cells.add(new Cell(5, 10));
+        cells.add(new Cell(Nominal.FIFTY, 10));
+        cells.add(new Cell(Nominal.TEN, 10));
 
         ATM atm = new ATM(cells);
 
@@ -37,8 +38,8 @@ public class ATMTest {
     public void withdrawFail(){
         List<Cell> cells = new ArrayList<>();
 
-        cells.add(new Cell(5, 10));
-        cells.add(new Cell(10, 10));
+        cells.add(new Cell(Nominal.FIFTY, 10));
+        cells.add(new Cell(Nominal.TEN, 10));
 
         ATM atm = new ATM(cells);
 
@@ -49,12 +50,40 @@ public class ATMTest {
     public void withdrawAndBalance(){
         List<Cell> cells = new ArrayList<>();
 
-        cells.add(new Cell(50, 2));
-        cells.add(new Cell(100, 1));
+        cells.add(new Cell(Nominal.FIFTY, 2));
+        cells.add(new Cell(Nominal.HUNDRED, 1));
 
         ATM atm = new ATM(cells);
 
         Assert.assertTrue(atm.withdraw(100));
         Assert.assertEquals(100, atm.getBalance());
+    }
+
+    @Test
+    public void depositNotesOk(){
+        List<Cell> cells = new ArrayList<>();
+        List<Note> notes= new ArrayList<>();
+
+        cells.add(new Cell(Nominal.TEN, 1));
+        cells.add(new Cell(Nominal.HUNDRED, 1));
+        notes.add(new Note(Nominal.TEN));
+
+        ATM atm = new ATM(cells);
+
+        Assert.assertEquals(new ArrayList<Note>(), atm.deposit(notes));
+    }
+
+    @Test
+    public void depositWithOneReturned(){
+        List<Cell> cells = new ArrayList<>();
+        List<Note> notes= new ArrayList<>();
+
+        cells.add(new Cell(Nominal.TEN, 1));
+        cells.add(new Cell(Nominal.HUNDRED, 1));
+        notes.add(new Note(Nominal.FIFTY));
+
+        ATM atm = new ATM(cells);
+
+        Assert.assertEquals(notes, atm.deposit(notes));
     }
 }

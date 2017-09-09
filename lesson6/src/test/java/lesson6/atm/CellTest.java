@@ -1,5 +1,7 @@
 package lesson6.atm;
 
+import lesson6.money.Nominal;
+import lesson6.money.Note;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,27 +11,37 @@ import org.junit.Test;
 public class CellTest {
     @Test
     public void withdrawSimple(){
-        Cell cell = new Cell(1, 100);
+        Cell cell = new Cell(Nominal.TEN, 10);
         Assert.assertEquals(40, cell.withdraw(40));
-        Assert.assertEquals(60, cell.getCount());
     }
 
     @Test
     public void withdrawBig(){
-        Cell cell = new Cell(1,100);
-        // ячейка может вернуть только 100
+        Cell cell = new Cell(Nominal.TEN,10);
         Assert.assertEquals(100, cell.withdraw(101));
     }
 
     @Test
     public void withdrawBigCash(){
-        Cell cell = new Cell(100,1);
+        Cell cell = new Cell(Nominal.HUNDRED,1);
         Assert.assertEquals(100, cell.withdraw(101));
     }
 
     @Test
     public void withdrawBigNominal(){
-        Cell cell = new Cell(100,1);
+        Cell cell = new Cell(Nominal.HUNDRED,1);
         Assert.assertEquals(0, cell.withdraw(50));
+    }
+
+    @Test
+    public void depositSimple(){
+        Cell cell = new Cell(Nominal.TEN, 1);
+        Assert.assertTrue(cell.deposit(new Note(Nominal.TEN)));
+    }
+
+    @Test
+    public void depositNotEquals(){
+        Cell cell = new Cell(Nominal.TEN, 1);
+        Assert.assertFalse(cell.deposit(new Note(Nominal.FIVE)));
     }
 }
