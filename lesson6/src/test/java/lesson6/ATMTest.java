@@ -1,4 +1,4 @@
-package lesson6.atm;
+package lesson6;
 
 import lesson6.money.Nominal;
 import lesson6.money.Note;

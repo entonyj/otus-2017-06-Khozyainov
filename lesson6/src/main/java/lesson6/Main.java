@@ -1,14 +1,11 @@
 package lesson6;
 
-import lesson6.atm.ATM;
-import lesson6.atm.Cell;
 import lesson6.department.Department;
 import lesson6.money.Nominal;
 import lesson6.money.Note;
 import lesson6.service.CollectingService;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**

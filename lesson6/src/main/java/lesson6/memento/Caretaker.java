@@ -1,4 +1,4 @@
-package lesson6.atm.memento;
+package lesson6.memento;
 
 /**
  * Created by entony on 28.08.17.

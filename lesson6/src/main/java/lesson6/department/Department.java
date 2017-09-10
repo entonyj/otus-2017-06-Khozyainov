@@ -1,6 +1,6 @@
 package lesson6.department;
 
-import lesson6.atm.ATM;
+import lesson6.ATM;
 import lesson6.service.Service;
 
 import java.util.ArrayList;

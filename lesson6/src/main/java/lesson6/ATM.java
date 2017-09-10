@@ -1,15 +1,13 @@
-package lesson6.atm;
+package lesson6;
 
-import lesson6.atm.memento.Caretaker;
-import lesson6.atm.memento.Memento;
+import lesson6.memento.Caretaker;
+import lesson6.memento.Memento;
 import lesson6.money.Note;
 import lesson6.service.Service;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import static lesson6.atm.Cell.copyCells;
 
 /**
  * Created by entony on 15.08.17.
@@ -20,7 +18,7 @@ public class ATM {
 
     public ATM(List<Cell> cells) {
         Collections.sort(cells);
-        this.cells = copyCells(cells);
+        this.cells = Cell.copyCells(cells);
         caretaker.setDefaultMemento(saveToMemento());
     }
 

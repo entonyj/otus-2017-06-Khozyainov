@@ -1,8 +1,6 @@
 package lesson6.service;
 
-import lesson6.atm.ATM;
-import lesson6.atm.Cell;
-import lesson6.atm.memento.Caretaker;
+import lesson6.ATM;
 
 /**
  * Created by entony on 02.09.17.
