@@ -9,8 +9,8 @@ import lesson8.objects.PrimitivesExample;
  */
 public class Main {
     public static void main(String[] args) {
-        //System.out.println("Primitives: " + JsonBuilder.toJson(new PrimitivesExample()));
+        //System.out.println("Primitives: " + JsonHelper.toJson(new PrimitivesExample()));
         System.out.println("Array: " + JsonHelper.toJson(new ArrayExample()));
-        //System.out.println("Collection: " + JsonBuilder.toJson(new CollectionExample()));
+        //System.out.println("Collection: " + JsonHelper.toJson(new CollectionExample()));
     }
 }
