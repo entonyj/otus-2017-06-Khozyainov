@@ -23,11 +23,7 @@ public class JsonHelper {
         Class cls = obj.getClass();
         if (obj == null){
             return objBuilder.addNull(fieldName);
-        } else if (cls.isPrimitive() || obj instanceof String){
-            valueToJson(fieldName, obj, objBuilder);
-        } else if (cls.isArray()){
-            objBuilder.add(fieldName, arrayToJson(obj, Json.createArrayBuilder()));
-        } else if (obj instanceof Object){
+        } else {
             List<Field> fields = getFields(obj);
             for (Field field: fields){
 
